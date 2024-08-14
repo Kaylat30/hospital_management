@@ -1,18 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <!-- Report Template -->
     <template id="report_hospital_patient">
-        <t t-call="web.html_container">
+         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
-                <div class="page">
-                    <h2>Patient Report: <span t-field="doc.name"/></h2>
-                    <p><strong>Age:</strong> <span t-field="doc.age"/></p>
-                    <p><strong>Gender:</strong> <span t-field="doc.gender"/></p>
-                    <p><strong>Disease:</strong> <span t-field="doc.disease"/></p>
-                    <p><strong>Doctor:</strong> <span t-field="doc.doctor_id.name"/></p>
-                    <p><strong>Discharged:</strong> <span t-field="doc.is_discharged"/></p>
-                    <p><strong>Notes:</strong></p>
-                    <div t-field="doc.notes"/>
-                </div>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Patient Report: <span t-field="doc.name"/></h2>
+                        <p><strong>Age:</strong> <span t-field="doc.age"/></p>
+                        <p><strong>Gender:</strong> <span t-field="doc.gender"/></p>
+                        <p><strong>Disease:</strong> <span t-field="doc.disease"/></p>
+                        <p><strong>Doctor:</strong> <span t-field="doc.doctor_ids.name"/></p>
+                        <p><strong>Discharged:</strong> <span t-field="doc.is_discharged"/></p>
+                        <p><strong>Notes:</strong></p>
+                        <div t-field="doc.notes"/>
+                    </div>
+                 </t>
             </t>
         </t>
     </template>
@@ -22,8 +25,8 @@
         <field name="name">Patient Report</field>
         <field name="model">hospital.patient</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">hospital_management.report_hospital_patient</field>
-        <field name="report_file">hospital_management.report_hospital_patient</field>
+        <field name="report_name">hospital_managemet.report_hospital_patient</field>
+        <field name="report_file">hospital_managemet.report_hospital_patient</field>
         <field name="print_report_name">'Patient Report - %s' % (object.name)</field>
         <field name="binding_model_id" ref="model_hospital_patient"/>
         <field name="binding_type">report</field>
@@ -40,4 +43,4 @@
               parent="menu_hospital_reports"
               action="action_report_hospital_patient"
               sequence="10"/>
-</odoo>
+</odoo> 
