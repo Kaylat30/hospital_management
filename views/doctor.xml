@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- Doctor Views -->
+    <record id="view_hospital_doctor_form" model="ir.ui.view">
+        <field name="name">hospital.doctor.form</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <form string="Doctor Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="specialty"/>
+                        <field name="phone"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hospital_doctor_tree" model="ir.ui.view">
+        <field name="name">hospital.doctor.tree</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <tree string="Doctors">
+                <field name="name"/>
+                <field name="specialty"/>
+                <field name="phone"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hospital_doctor_kanban" model="ir.ui.view">
+        <field name="name">hospital.doctor.kanban</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <kanban string="Doctor Kanban">
+                <field name="name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <ul>
+                                    <li>Name: <field name="name"/></li>
+                                    <li>Specialty: <field name="specialty"/></li>
+                                    <li>Phone: <field name="phone"/></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_hospital_doctor_search" model="ir.ui.view">
+        <field name="name">hospital.doctor.search</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <search string="Search Doctors">
+                <field name="name"/>
+                <field name="specialty"/>
+                <field name="phone"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_specialty" string="Specialty" context="{'group_by': 'specialty'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- Action  -->
+    <record id="action_hospital_doctor" model="ir.actions.act_window">
+        <field name="name">Doctors</field>
+        <field name="res_model">hospital.doctor</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="search_view_id" ref="view_hospital_doctor_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first doctor!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_hospital_doctor"
+              name="Doctors"
+              parent="menu_hospital_operations"
+              action="action_hospital_doctor"
+              sequence="40"/>
+                  
+</odoo>

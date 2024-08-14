@@ -7,7 +7,8 @@
     'author': 'Kayondo',
     'depends': ['base'],
     'data': [
-        'views/views.xml',
+        'views/patient.xml',
+        'views/doctor.xml',
         'security/ir.model.access.csv',
         'reports/reports.xml',
     ],

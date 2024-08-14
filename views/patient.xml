@@ -2,35 +2,37 @@
 <odoo>
     <!-- Form View -->
     <record id="view_hospital_patient_form" model="ir.ui.view">
-        <field name="name">hospital.patient.form</field>
-        <field name="model">hospital.patient</field>
-        <field name="arch" type="xml">
-            <form string="Patient Form">
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="age"/>
-                        <field name="gender"/>
-                        <field name="disease"/>
-                        <field name="doctor_id"/>
-                        <field name="notes"/>
-                        <field name="is_discharged"/>
-                        <field name="attachment"/>
-                    </group>
-                    <notebook>
-                        <page string="Medical Records">
-                            <field name="medical_records">
-                                <tree>
-                                    <field name="name"/>
-                                    <field name="description"/>
-                                </tree>
-                            </field>
-                        </page>
-                    </notebook>
-                </sheet>
-            </form>
-        </field>
-    </record>
+    <field name="name">hospital.patient.form</field>
+    <field name="model">hospital.patient</field>
+    <field name="arch" type="xml">
+        <form string="Patient Form">
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="date_of_birth"/>
+                    <field name="age" readonly="1"/>
+                    <field name="gender"/>
+                    <field name="disease"/>
+                    <field name="doctor_id"/>
+                    <field name="notes"/>
+                    <field name="is_discharged"/>
+                    <field name="attachment"/>
+                </group>
+                <notebook>
+                    <page string="Medical Records">
+                        <field name="medical_records">
+                            <tree>
+                                <field name="name"/>
+                                <field name="description"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
+
 
     <!-- Tree View -->
     <record id="view_hospital_patient_tree" model="ir.ui.view">
@@ -92,6 +94,11 @@
         </field>
     </record>
 
+
+    
+
+    
+
     <!-- Action -->
     <record id="action_hospital_patient" model="ir.actions.act_window">
         <field name="name">Patients</field>
@@ -105,6 +112,9 @@
         </field>
     </record>
 
+
+
+
     <!-- Menu Items -->
     <menuitem id="menu_hospital_root"
               name="Hospital Management"
@@ -112,7 +122,7 @@
               sequence="10"/>
 
     <menuitem id="menu_hospital_operations"
-              name="Operations"
+              name="Staff"
               parent="menu_hospital_root"
               sequence="20"/>
 
@@ -121,4 +131,6 @@
               parent="menu_hospital_operations"
               action="action_hospital_patient"
               sequence="30"/>
+
+    
 </odoo>

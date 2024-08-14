@@ -1,4 +1,5 @@
 <odoo>
+    <!-- Report Template -->
     <template id="report_hospital_patient">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
@@ -16,13 +17,27 @@
         </t>
     </template>
 
-    <report
-        id="action_report_hospital_patient"
-        model="hospital.patient"
-        string="Patient Report"
-        report_type="qweb-pdf"
-        file="hospital_management.report_hospital_patient"
-        name="hospital_management.report_hospital_patient"
-        print_report_name="'Patient Report - %s' % (object.name)"
-    />
+    <!-- Report Action -->
+    <record id="action_report_hospital_patient" model="ir.actions.report">
+        <field name="name">Patient Report</field>
+        <field name="model">hospital.patient</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hospital_management.report_hospital_patient</field>
+        <field name="report_file">hospital_management.report_hospital_patient</field>
+        <field name="print_report_name">'Patient Report - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_hospital_patient"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Report Menu -->
+    <menuitem id="menu_hospital_reports"
+              name="Reports"
+              parent="menu_hospital_root"
+              sequence="50"/>
+
+    <menuitem id="menu_hospital_patient_report"
+              name="Patient Reports"
+              parent="menu_hospital_reports"
+              action="action_report_hospital_patient"
+              sequence="10"/>
 </odoo>
