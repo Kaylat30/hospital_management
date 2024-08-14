@@ -7,7 +7,7 @@
                     <p><strong>Age:</strong> <span t-field="doc.age"/></p>
                     <p><strong>Gender:</strong> <span t-field="doc.gender"/></p>
                     <p><strong>Disease:</strong> <span t-field="doc.disease"/></p>
-                    <!-- <p><strong>Doctor:</strong> <span t-field="doc.doctor_id.name"/></p> -->
+                    <p><strong>Doctor:</strong> <span t-field="doc.doctor_id.name"/></p>
                     <p><strong>Discharged:</strong> <span t-field="doc.is_discharged"/></p>
                     <p><strong>Notes:</strong></p>
                     <div t-field="doc.notes"/>

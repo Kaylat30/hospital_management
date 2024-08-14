@@ -5,17 +5,28 @@
         <field name="name">hospital.patient.form</field>
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Patient Form">
                 <sheet>
                     <group>
                         <field name="name"/>
                         <field name="age"/>
                         <field name="gender"/>
                         <field name="disease"/>
+                        <field name="doctor_id"/>
                         <field name="notes"/>
                         <field name="is_discharged"/>
                         <field name="attachment"/>
                     </group>
+                    <notebook>
+                        <page string="Medical Records">
+                            <field name="medical_records">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -26,7 +37,7 @@
         <field name="name">hospital.patient.tree</field>
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree string="Patients">
                 <field name="name"/>
                 <field name="age"/>
                 <field name="gender"/>
@@ -41,7 +52,7 @@
         <field name="name">hospital.patient.kanban</field>
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
-            <kanban>
+            <kanban string="Patient Kanban">
                 <field name="name"/>
                 <templates>
                     <t t-name="kanban-box">
@@ -67,7 +78,7 @@
         <field name="name">hospital.patient.search</field>
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
-            <search>
+            <search string="Search Patients">
                 <field name="name"/>
                 <field name="age"/>
                 <field name="gender"/>
@@ -97,18 +108,17 @@
     <!-- Menu Items -->
     <menuitem id="menu_hospital_root"
               name="Hospital Management"
-              web_icon="hospital_managemet,static/description/icon.png"
+              web_icon="hospital_management,static/description/icon.png"
               sequence="10"/>
 
     <menuitem id="menu_hospital_operations"
               name="Operations"
               parent="menu_hospital_root"
-              sequence="10"/>
+              sequence="20"/>
 
     <menuitem id="menu_hospital_patient"
               name="Patients"
               parent="menu_hospital_operations"
               action="action_hospital_patient"
-              sequence="10"/>
-
+              sequence="30"/>
 </odoo>
