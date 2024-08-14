@@ -10,7 +10,7 @@ class HospitalPatient(models.Model):
     age = fields.Integer(string="Age", compute="_compute_age", store=True)
     gender = fields.Selection([('male', 'Male'), ('female', 'Female')], string="Gender")
     disease = fields.Char(string="Disease")
-    doctor_id = fields.Many2one('hospital.doctor', string="Doctor")
+    doctor_ids = fields.Many2many('hospital.doctor', string="Doctors")
     notes = fields.Html(string="Notes")
     is_discharged = fields.Boolean(string="Discharged")
     medical_records = fields.One2many('hospital.record', 'patient_id', string="Medical Records")
@@ -42,6 +42,8 @@ class HospitalDoctor(models.Model):
     name = fields.Char(string="Doctor Name", required=True)
     specialty = fields.Char(string="Specialty")
     phone = fields.Char(string="Phone Number")
+    patient_ids = fields.Many2many('hospital.patient', string="Patients")
+
 
 class HospitalRecord(models.Model):
     _name = 'hospital.record'
@@ -49,4 +51,15 @@ class HospitalRecord(models.Model):
 
     name = fields.Char(string="Record Name", required=True)
     patient_id = fields.Many2one('hospital.patient', string="Patient", required=True)
+    patient_name = fields.Char(string="Patient Name", readonly=True, compute="_compute_patient_name")
     description = fields.Text(string="Description")
+
+    @api.depends('patient_id')
+    def _compute_patient_name(self):
+        for record in self:
+            record.patient_name = record.patient_id.name
+
+    @api.onchange('patient_id')
+    def _onchange_patient_id(self):
+        if self.patient_id:
+            self.patient_name = self.patient_id.name

@@ -2,37 +2,37 @@
 <odoo>
     <!-- Form View -->
     <record id="view_hospital_patient_form" model="ir.ui.view">
-    <field name="name">hospital.patient.form</field>
-    <field name="model">hospital.patient</field>
-    <field name="arch" type="xml">
-        <form string="Patient Form">
-            <sheet>
-                <group>
-                    <field name="name"/>
-                    <field name="date_of_birth"/>
-                    <field name="age" readonly="1"/>
-                    <field name="gender"/>
-                    <field name="disease"/>
-                    <field name="doctor_id"/>
-                    <field name="notes"/>
-                    <field name="is_discharged"/>
-                    <field name="attachment"/>
-                </group>
-                <notebook>
-                    <page string="Medical Records">
-                        <field name="medical_records">
-                            <tree>
-                                <field name="name"/>
-                                <field name="description"/>
-                            </tree>
-                        </field>
-                    </page>
-                </notebook>
-            </sheet>
-        </form>
-    </field>
-</record>
-
+        <field name="name">hospital.patient.form</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form string="Patient Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="date_of_birth"/>
+                        <field name="age" readonly="1"/>
+                        <field name="gender"/>
+                        <field name="disease"/>
+                        <field name="doctor_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        <field name="notes"/>
+                        <field name="is_discharged"/>
+                        <field name="attachment"/>
+                    </group>
+                    <notebook>
+                        <page string="Medical Records">
+                            <field name="medical_records">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                    <field name="patient_name" string="Patient Name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
     <!-- Tree View -->
     <record id="view_hospital_patient_tree" model="ir.ui.view">
@@ -85,19 +85,16 @@
                 <field name="age"/>
                 <field name="gender"/>
                 <field name="disease"/>
+                <field name="doctor_ids"/>
                 <filter name="discharged" string="Discharged" domain="[('is_discharged', '=', True)]"/>
                 <filter name="not_discharged" string="Not Discharged" domain="[('is_discharged', '=', False)]"/>
                 <group expand="0" string="Group By">
                     <filter name="group_by_gender" string="Gender" context="{'group_by': 'gender'}"/>
+                    <filter name="group_by_doctor" string="Doctor" context="{'group_by': 'doctor_ids'}"/>
                 </group>
             </search>
         </field>
     </record>
-
-
-    
-
-    
 
     <!-- Action -->
     <record id="action_hospital_patient" model="ir.actions.act_window">
@@ -111,9 +108,6 @@
             </p>
         </field>
     </record>
-
-
-
 
     <!-- Menu Items -->
     <menuitem id="menu_hospital_root"
@@ -131,6 +125,4 @@
               parent="menu_hospital_operations"
               action="action_hospital_patient"
               sequence="30"/>
-
-    
 </odoo>
