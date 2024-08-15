@@ -50,7 +50,7 @@ class HospitalRecord(models.Model):
     _description = 'Medical Record'
 
     name = fields.Char(string="Record Name", required=True)
-    patient_id = fields.Many2one('hospital.patient', string="Patient", required=True)
+    patient_id = fields.Many2one('hospital.patient', string="Patient", readonly=True)
     patient_name = fields.Char(string="Patient Name", readonly=True, compute="_compute_patient_name")
     description = fields.Text(string="Description")
 
